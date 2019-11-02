@@ -170,8 +170,13 @@ function generate() {
                     textStrokeWidth: 2,
                     font: function(context) {
                         var w = context.chart.width;
+                        var size = context.dataset.data[context.dataIndex].r * 2;
+                        if (size > 17)
+                            size = 17;
+                        else if (size < 13)
+                            size = 13;
                         return {
-                            size: w < 512 ? 12 : 14,
+                            size: size,
                             weight: 550,
                             lineHeight: 0,
                         };
