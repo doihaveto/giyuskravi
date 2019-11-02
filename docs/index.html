@@ -30,11 +30,17 @@
             <a href="https://www.mitgaisim.idf.il/media/22708/giyos.pdf">נתוני גיוס 2015</a><br>
             <a href="https://votes22.bechirot.gov.il/cityresults">תוצאות הבחירות לכנסת ה-22</a>
         </small></p>
-        <h3>משקל מפלגות</h3>
+        <h3>הגדרות משקל מפלגות לחישוב נטייה פוליטית</h3>
+        <p style="direction: ltr; text-align: left;">
+            <small><code>
+                for each party:<br>
+                <span style="margin-left: 20px;">city_political_leaning += (votes_for_party_in_city / total_weighted_parties_votes) * 100 * party_weight</span><br>
+                Final scores are normalised to -50/+50.
+            </code></small></p>
         <p>
-            0 - לא נספר<br>
-            1> - ימין<br>
-            1< - שמאל
+            <strong>0</strong> לא נספר<br>
+            <strong>1&lt;</strong> ימין<br>
+            <strong>1&gt;</strong> שמאל
         </p>
         <table id="party_scores">
             <tbody>
