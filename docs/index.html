@@ -38,15 +38,15 @@
         </p>
         <table id="party_scores">
             <tbody>
-                <tr><td><label for="party_otzma">עוצמה יהודית</label></td><td><input type="number" id="party_otzma" value="0.6" step="0.1" data-party="otzma"></td></tr>
-                <tr><td><label for="party_yamina">ימינה</label></td><td><input type="number" id="party_yamina" value="0.6" step="0.1" data-party="yamina"></td></tr>
-                <tr><td><label for="party_liberman">ישראל ביתנו</label></td><td><input type="number" id="party_liberman" value="0.7" step="0.1" data-party="liberman"></td></tr>
-                <tr><td><label for="party_likud">ליכוד</label></td><td><input type="number" id="party_likud" value="0.7" step="0.1" data-party="likud"></td></tr>
+                <tr><td><label for="party_otzma">עוצמה יהודית</label></td><td><input type="number" id="party_otzma" value="1.4" step="0.1" data-party="otzma"></td></tr>
+                <tr><td><label for="party_yamina">ימינה</label></td><td><input type="number" id="party_yamina" value="1.4" step="0.1" data-party="yamina"></td></tr>
+                <tr><td><label for="party_liberman">ישראל ביתנו</label></td><td><input type="number" id="party_liberman" value="1.3" step="0.1" data-party="liberman"></td></tr>
+                <tr><td><label for="party_likud">ליכוד</label></td><td><input type="number" id="party_likud" value="1.3" step="0.1" data-party="likud"></td></tr>
                 <tr><td><label for="party_litzman">יהדות התורה</label></td><td><input type="number" id="party_litzman" value="0" step="0.1" data-party="litzman"></td></tr>
                 <tr><td><label for="party_shas">שס</label></td><td><input type="number" id="party_shas" value="0" step="0.1" data-party="shas"></td></tr>
                 <tr><td><label for="party_kachol_lavan">כחול לבן</label></td><td><input type="number" id="party_kachol_lavan" value="1" step="0.1" data-party="kachol_lavan"></td></tr>
-                <tr><td><label for="party_labour">העבודה</label></td><td><input type="number" id="party_labour" value="1.3" step="0.1" data-party="labour"></td></tr>
-                <tr><td><label for="party_meretz">מרצ</label></td><td><input type="number" id="party_meretz" value="1.4" step="0.1" data-party="meretz"></td></tr>
+                <tr><td><label for="party_labour">העבודה</label></td><td><input type="number" id="party_labour" value="0.7" step="0.1" data-party="labour"></td></tr>
+                <tr><td><label for="party_meretz">מרצ</label></td><td><input type="number" id="party_meretz" value="0.6" step="0.1" data-party="meretz"></td></tr>
                 <tr><td><label for="party_arab_list">הרשימה המשותפת</label></td><td><input type="number" id="party_arab_list" value="0" step="0.1" data-party="arab_list"></td></tr>
             </tbody>
         </table>
@@ -112,7 +112,7 @@ function generate() {
 
     var rainbow = new Rainbow(); 
     rainbow.setNumberRange(1, 100);
-    rainbow.setSpectrum('blue', 'red');
+    rainbow.setSpectrum('red', 'blue');
     var chart_labels = [];
     var chart_points = [];
     var chart_bgcolours = [];
