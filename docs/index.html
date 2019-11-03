@@ -58,7 +58,10 @@
                 <tr><td><label for="party_arab_list">הרשימה המשותפת</label></td><td><input type="number" id="party_arab_list" value="0" step="0.1" data-party="arab_list"></td></tr>
             </tbody>
         </table>
-        <button id="generate" class="btn btn-primary">חשב מחדש</button>
+        <h3>ערים  <button type="button" class="btn btn-secondary btn-sm" id="cities_toggle_button">הצג \ החבא</button></h3>
+        <div id="cities_toggle" style="display: none;">
+        </div>
+        <button id="generate" type="button" class="btn btn-primary">חשב מחדש</button>
     </div>
     <div id="data">
         <table id="data-table" class="table-bordered">
@@ -66,6 +69,7 @@
                 <tr>
                     <th>עיר</th>
                     <th>נטייה פוליטית</th>
+                    <th>נטייה פוליטית (לא מנורמל)</th>
                     <th>מיצוי ללחימה</th>
                     <th>מצביעים</th>
                 </tr>
@@ -84,6 +88,7 @@
 <script src="giyus.js"></script>
 <script>
 var chart;
+var enabled_cities = [];
 
 function generate() {
     if (chart)
@@ -97,6 +102,8 @@ function generate() {
     var lowest_political_score = 100;
     giyus_data.forEach(function(city) {
         var city_name = city[0];
+        if (enabled_cities.indexOf(city_name) == -1)
+            return;
         var kravi = city[1];
         cities[city_name] = {'kravi': kravi, 'kosher_votes': votes[city_name]['kosher_votes']};
         var political_score = 0;
@@ -127,6 +134,7 @@ function generate() {
     var chart_borders = [];
     $('#data-table tbody').empty();
     for (var k in cities) {
+        var original_score = cities[k]['political_score'];
         cities[k]['political_score'] = ((cities[k]['political_score'] - lowest_political_score) / (highest_political_score - lowest_political_score)) * 100 - 50;
         chart_labels.push(k);
         chart_points.push({
@@ -136,7 +144,7 @@ function generate() {
         });
         chart_bgcolours.push('#' + rainbow.colourAt(parseInt(cities[k]['political_score']) + 50));
         chart_borders.push('#FFF');
-        $('#data-table tbody').append('<tr><td>' + k + '</td><td class="ltr">' + parseFloat(cities[k]['political_score']).toFixed(2) + '</td><td class="ltr">' + cities[k]['kravi'] + '</td><td class="ltr">' + cities[k]['kosher_votes'] + '</td></tr>');
+        $('#data-table tbody').append('<tr><td>' + k + '</td><td class="ltr">' + parseFloat(cities[k]['political_score']).toFixed(2) + '</td><td class="ltr">' + parseFloat(original_score).toFixed(2) + '</td><td class="ltr">' + cities[k]['kravi'] + '</td><td class="ltr">' + cities[k]['kosher_votes'] + '</td></tr>');
     }
 
     var ctx = document.getElementById('chart').getContext('2d');
@@ -207,6 +215,23 @@ function generate() {
     });
 }
 
+giyus_data.forEach(function(city, i) {
+    var city_name = city[0];
+    enabled_cities.push(city_name);
+    $('#cities_toggle').append($('<input id="city_toggle_' + i + '" type="checkbox" checked data-city="' + city_name + '"> <label for="city_toggle_' + i + '">' + city_name + '</label><br>'));
+});
+
+$('#cities_toggle input[type=checkbox]').change(function() {
+    var city_name = $(this).data('city');
+    if ($(this).prop('checked')) {
+        enabled_cities.push(city_name);
+    } else {
+        var index = enabled_cities.indexOf(city_name);
+        if (index !== -1)
+            enabled_cities.splice(index, 1);
+    }
+});
+
 generate();
 
 $('#generate').click(function() {
@@ -215,6 +240,10 @@ $('#generate').click(function() {
 
 $('#data-table').DataTable({
     paging: false
+});
+
+$('#cities_toggle_button').click(function() {
+    $('#cities_toggle').toggle();
 });
 </script>
 </html>
